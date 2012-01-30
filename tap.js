@@ -3,7 +3,7 @@
  * Find more about this plugin by visiting
  * http://miniapps.co.uk/
  *
- * Copyright (c) 2010-2012 Alex Gibson, http://miniapps.co.uk/
+ * Copyright (c) 2012 Alex Gibson, http://miniapps.co.uk/
  * Released under MIT license
  * http://miniapps.co.uk/license/
  *
