@@ -9,12 +9,12 @@
  *
  */
 
-(function () {
+(function (window, document) {
 
 	function Tap(id) {
 		this.element = id;
 		this.hasTouch = 'ontouchstart' in window || 'createTouch' in document;
-		this.eventStart = this.hasTouch ? 'touchstart' : 'mousedown'; 
+		this.eventStart = this.hasTouch ? 'touchstart' : 'mousedown';
 		this.eventMove = this.hasTouch ? 'touchmove' : 'mousemove';
 		this.eventEnd = this.hasTouch ? 'touchend' : 'mouseup';
 		this.moved = false; //flags if the finger has moved
@@ -27,12 +27,12 @@
 	Tap.prototype.start = function (e) {
 		this.moved = false;
 		this.startX = this.hasTouch ? e.touches[0].clientX : e.clientX;
-  		this.startY = this.hasTouch ? e.touches[0].clientY : e.clientY;
-  		this.element.addEventListener(this.eventMove, this, false);
-  		this.element.addEventListener(this.eventEnd, this, false);
-  		if (this.hasTouch) {
-  			this.element.addEventListener('touchcancel', this, false);
-  		}
+		this.startY = this.hasTouch ? e.touches[0].clientY : e.clientY;
+		this.element.addEventListener(this.eventMove, this, false);
+		this.element.addEventListener(this.eventEnd, this, false);
+		if (this.hasTouch) {
+			this.element.addEventListener('touchcancel', this, false);
+		}
 	};
 
 	//move	
@@ -42,7 +42,7 @@
 		//if finger moves more than 10px flag to cancel
 		if (Math.abs(x - this.startX) > 10 || Math.abs(y - this.startY) > 10) {
 			this.moved = true;
-  		}
+		}
 	};
 
 	//end
@@ -54,11 +54,11 @@
 			event.initEvent('tap', true, true);
 			e.target.dispatchEvent(event);
 		}
-  		this.element.removeEventListener(this.eventMove, this, false);
-  		this.element.removeEventListener(this.eventEnd, this, false);
-  		if (this.hasTouch) {
-  			this.element.removeEventListener('touchcancel', this, false);
-  		}
+		this.element.removeEventListener(this.eventMove, this, false);
+		this.element.removeEventListener(this.eventEnd, this, false);
+		if (this.hasTouch) {
+			this.element.removeEventListener('touchcancel', this, false);
+		}
 	};
 
 	//touchcancel
@@ -66,27 +66,27 @@
 		//reset state
 		this.moved = false;
 		this.startX = 0;
-  		this.startY = 0;
-  		this.element.removeEventListener(this.eventMove, this, false);
-  		this.element.removeEventListener(this.eventEnd, this, false);
-  		if (this.hasTouch) {
-  			this.element.removeEventListener('touchcancel', this, false);
-  		}
+		this.startY = 0;
+		this.element.removeEventListener(this.eventMove, this, false);
+		this.element.removeEventListener(this.eventEnd, this, false);
+		if (this.hasTouch) {
+			this.element.removeEventListener('touchcancel', this, false);
+		}
 	};
 
 	Tap.prototype.handleEvent = function (e) {
 		switch (e.type) {
-			case 'touchstart': this.start(e); break;
-			case 'touchmove': this.move(e); break;
-			case 'touchend': this.end(e); break;
-			case 'touchcancel': this.cancell(e); break;
-			case 'mousedown': this.start(e); break;
-			case 'mousemove': this.move(e); break;
-			case 'mouseup': this.end(e); break;
+		case 'touchstart': this.start(e); break;
+		case 'touchmove': this.move(e); break;
+		case 'touchend': this.end(e); break;
+		case 'touchcancel': this.cancell(e); break;
+		case 'mousedown': this.start(e); break;
+		case 'mousemove': this.move(e); break;
+		case 'mouseup': this.end(e); break;
 		}
 	};
 
 	//public function
 	window.Tap = Tap;
 
-})();
+}(window, document));
