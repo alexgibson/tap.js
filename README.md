@@ -34,12 +34,14 @@ You can stop listening for tap events like so:
 el.removeEventListener('tap', tapDidOccur, false);
 ```
 	
-Tested browsers/devices
+Tested web browsers
 ---------------------------------------
 
 - iOS Safari (5.0.1)
 - Android default browser (2.3.5)
 - Opera Mobile 11.50 (Android)
+- BlackBerry Playbook (1.0.8.6067)
+- HP webOS 2.1.0
 - All modern desktop browsers
 	
 License

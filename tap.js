@@ -11,8 +11,8 @@
 
 (function (window, document) {
 
-	function Tap(id) {
-		this.element = id;
+	function Tap(el) {
+		this.element = typeof el === 'object' ? el : document.getElementById(el);
 		this.hasTouch = 'ontouchstart' in window || 'createTouch' in document;
 		this.eventStart = this.hasTouch ? 'touchstart' : 'mousedown';
 		this.eventMove = this.hasTouch ? 'touchmove' : 'mousemove';
