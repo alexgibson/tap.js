@@ -48,7 +48,10 @@
 	//end
 	Tap.prototype.end = function (e) {
 		var event;
-		e.preventDefault();
+		//only preventDefault on elements that are not form inputs
+		if (e.target.tagName !== 'SELECT' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+			e.preventDefault();
+		}
 		if (!this.moved) {
 			event = document.createEvent('Event');
 			event.initEvent('tap', true, true);
