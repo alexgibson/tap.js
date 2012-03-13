@@ -13,7 +13,6 @@
 
 	function Tap(el) {
 		this.element = typeof el === 'object' ? el : document.getElementById(el);
-		this.hasTouch = 'ontouchstart' in window || 'createTouch' in document;
 		this.eventStart = this.hasTouch ? 'touchstart' : 'mousedown';
 		this.eventMove = this.hasTouch ? 'touchmove' : 'mousemove';
 		this.eventEnd = this.hasTouch ? 'touchend' : 'mouseup';
@@ -22,6 +21,8 @@
 		this.startY = 0; //starting y coordinate
 		this.element.addEventListener(this.eventStart, this, false);
 	}
+	
+	Tap.prototype.hasTouch = 'ontouchstart' in window || 'createTouch' in document;
 
 	//start			
 	Tap.prototype.start = function (e) {
@@ -82,7 +83,7 @@
 		case 'touchstart': this.start(e); break;
 		case 'touchmove': this.move(e); break;
 		case 'touchend': this.end(e); break;
-		case 'touchcancel': this.cancell(e); break;
+		case 'touchcancel': this.cancel(e); break;
 		case 'mousedown': this.start(e); break;
 		case 'mousemove': this.move(e); break;
 		case 'mouseup': this.end(e); break;
