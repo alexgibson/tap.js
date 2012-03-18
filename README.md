@@ -6,7 +6,7 @@ A custom 'tap' event JavaScript plugin for mobile browsers. Contains a fallback 
 Setup
 ---------------------------------------
 
-First, include the main JavaScript file in the `<head>` of your HTML document:
+First, include the main tap.js JavaScript file in your HTML document:
 
 ```
 <script src="tap.js"></script>
@@ -37,12 +37,12 @@ el.removeEventListener('tap', tapDidOccur, false);
 Tested web browsers
 ---------------------------------------
 
-- iOS Safari (5.0.1)
+- iOS Safari (5.1)
 - Android default browser (2.3.5)
 - Opera Mobile 11.50 (Android)
 - BlackBerry Playbook (1.0.8.6067)
-- HP webOS 2.1.0
-- All modern desktop browsers
+- HP webOS 2.1.0 (click fallback)
+- All modern desktop browsers (click fallback)
 	
 License
 ---------------------------------------
