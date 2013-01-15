@@ -3,7 +3,7 @@
  * Find more about this plugin by visiting
  * http://alxgbsn.co.uk/
  *
- * Copyright (c) 2012 Alex Gibson
+ * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
  * Released under MIT license
  *
  */
@@ -47,15 +47,15 @@
 
 	//end
 	Tap.prototype.end = function (e) {
-		var event;
-		//only preventDefault on elements that are not form inputs
-		if (e.target.tagName !== 'SELECT' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-			e.preventDefault();
-		}
+		var evt;
 		if (!this.moved) {
-			event = document.createEvent('Event');
-			event.initEvent('tap', true, true);
-			e.target.dispatchEvent(event);
+			//only preventDefault on elements that are not form inputs
+			if (e.target.tagName !== 'SELECT' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+				e.preventDefault();
+			}
+			evt = document.createEvent('Event');
+			evt.initEvent('tap', true, true);
+			e.target.dispatchEvent(evt);
 		}
 		this.element.removeEventListener(this.eventMove, this, false);
 		this.element.removeEventListener(this.eventEnd, this, false);
