@@ -1,7 +1,7 @@
 tap.js
 =======================================
 
-A custom 'tap' event JavaScript plugin for mobile browsers. Contains a fallback to using regular mouse events if touch support is not detected.
+A custom 'tap' event JavaScript plugin for mobile and tablet web browsers. Gracefully falls back to regular mouse events if touch is not supported.
 
 Setup
 ---------------------------------------
@@ -34,20 +34,19 @@ You can stop listening for tap events like so:
 el.removeEventListener('tap', tapDidOccur, false);
 ```
 	
-Tested web browsers
+Supported web browsers
 ---------------------------------------
 
-- iOS Safari (5.1)
-- Android default browser (2.3.5)
-- Opera Mobile 11.50 (Android)
-- BlackBerry Playbook (1.0.8.6067)
-- HP webOS 2.1.0 (click fallback)
-- All modern desktop browsers (click fallback)
+- iOS (Safari, Chrome)
+- Android (Browser, Chrome)
+- Opera Mobile (Android)
+- BlackBerry Playbook
+- All modern desktop browsers (mouse fallback)
 	
-License
+MIT License
 ---------------------------------------
 
-Copyright (c) 2012 Alex Gibson
+Copyright (c) 2012 - 2013 Alex Gibson
 
 http://alxgbsn.co.uk/
 
