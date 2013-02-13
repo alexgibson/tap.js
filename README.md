@@ -1,7 +1,7 @@
 tap.js
 =======================================
 
-A custom 'tap' event JavaScript plugin for mobile and tablet web browsers. Gracefully falls back to regular mouse events if touch is not supported.
+A custom 'tap' event JavaScript plugin for mobile and tablet web browsers. Uses mouse events as a fallback for browsers that don't support touch.
 
 Setup
 ---------------------------------------
@@ -22,8 +22,9 @@ var el = document.getElementById('my-id'),
 You can then start listening for 'tap' events using the regular JavaScript event listener syntax:
 
 ```
-el.addEventListener('tap', tapDidOccur, false); 
-function tapDidOccur1 (e) {
+el.addEventListener('tap', onTap, false); 
+
+function onTap (e) {
 	//your code
 }
 ```
@@ -31,7 +32,7 @@ function tapDidOccur1 (e) {
 You can stop listening for tap events like so:
 
 ```
-el.removeEventListener('tap', tapDidOccur, false);
+el.removeEventListener('tap', onTap, false);
 ```
 	
 Supported web browsers
