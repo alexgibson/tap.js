@@ -3,6 +3,13 @@ tap.js
 
 A custom 'tap' event JavaScript plugin for mobile and tablet web browsers. Uses mouse events as a fallback for browsers that don't support touch.
 
+Installation
+---------------------------------------
+
+* Download: [zip](https://github.com/alexgibson/tap.js/zipball/master)
+* [Bower](https://github.com/twitter/bower/): `bower install tap.js`
+* Git: `git clone https://github.com/alexgibson/tap.js`
+
 Setup
 ---------------------------------------
 
