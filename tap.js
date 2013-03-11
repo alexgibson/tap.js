@@ -14,14 +14,21 @@
 
 	'use strict';
 
-	function Tap(el) {
+	function Tap(el, lis) {
 		this.element = typeof el === 'object' ? el : document.getElementById(el);
+		this.listener = lis;
 		this.moved = false; //flags if the finger has moved
 		this.startX = 0; //starting x coordinate
 		this.startY = 0; //starting y coordinate
 		this.hasTouchEventOccured = false; //flag touch event
 		this.element.addEventListener('touchstart', this, false);
 		this.element.addEventListener('mousedown', this, false);
+		// legacy browser support with onclick and direct function listener
+		var self = this;
+		this.click = function (e) {
+			self.end(e);
+		};
+		this.element.addEventListener('click', this.click, false);
 	}
 
 	//start			
@@ -37,6 +44,7 @@
 		this.element.addEventListener('touchcancel', this, false);
 		this.element.addEventListener('mousemove', this, false);
 		this.element.addEventListener('mouseup', this, false);
+		this.element.removeEventListener('click', this.click, false);
 	};
 
 	//move	
@@ -62,6 +70,9 @@
 		}
 
 		if (!this.moved) {
+			if (typeof this.listener === 'function') {
+				this.listener.call(this.element, e);
+			}
 			evt = document.createEvent('Event');
 			evt.initEvent('tap', true, true);
 			e.target.dispatchEvent(evt);
@@ -95,6 +106,7 @@
 		case 'mousedown': this.start(e); break;
 		case 'mousemove': this.move(e); break;
 		case 'mouseup': this.end(e); break;
+		case 'click': this.click(e); break;
 		}
 	};
 
