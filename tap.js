@@ -24,7 +24,7 @@
         this.element.addEventListener('mousedown', this, false);
     }
 
-    //start         
+    //start
     Tap.prototype.start = function (e) {
         if (e.type === 'touchstart') {
             this.hasTouchEventOccured = true;
@@ -39,7 +39,7 @@
         this.element.addEventListener('mouseup', this, false);
     };
 
-    //move  
+    //move
     Tap.prototype.move = function (e) {
         var x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX,
             y = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
@@ -63,7 +63,7 @@
 
         if (!this.moved) {
             //create custom event
-            if (typeof CustomEvent === "function") {
+            if (typeof CustomEvent !== "undefined") {
                 evt = new CustomEvent('tap', {
                     bubbles: true,
                     cancelable: true
