@@ -15,7 +15,7 @@
     'use strict';
 
     function Tap(el) {
-        this.element = typeof el === 'object' ? el : document.getElementById(el);
+        this.element = el;
         this.moved = false; //flags if the finger has moved
         this.startX = 0; //starting x coordinate
         this.startY = 0; //starting y coordinate
@@ -106,7 +106,21 @@
         }
     };
 
-    //public function
-    window.Tap = Tap;
+    // Caches all created Tap instances, so that duplicate Tap instance creation
+    // can be prevented.
+    var tapCache = {};
+
+    // Public function that exposes the tap API. Makes sure that Tap.js is not
+    // initialized twice on the same element, which would cause all events to be
+    // dispatched twice as well.
+    window.Tap = function(el) {
+        var element = typeof el === 'object' ? el : document.getElementById(el);
+
+        if(typeof tapCache[element] === "undefined") {
+            tapCache[element] = new Tap(element);
+        }
+
+        return element;
+    }
 
 }(window, document));
