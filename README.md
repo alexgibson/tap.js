@@ -1,7 +1,7 @@
 tap.js
 =======================================
 
-A custom 'tap' event JavaScript plugin for mobile and tablet web browsers. Uses mouse events as a fallback for browsers that don't support touch.
+A custom 'tap' event JavaScript plugin for mobile and tablet web browsers, which eliminates the 300ms delay between a physical 'tap' and the firing of a 'click' event. Uses mouse events as a fallback for browsers that don't support touch.
 
 Installation
 ---------------------------------------
