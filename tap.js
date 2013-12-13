@@ -86,7 +86,6 @@
         case 'touchend': this.end(e); break;
         case 'touchcancel': this.cancel(e); break;
         case 'mousedown': this.start(e); break;
-        case 'mousemove': this.move(e); break;
         case 'mouseup': this.end(e); break;
         }
     };
