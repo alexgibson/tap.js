@@ -47,6 +47,7 @@ Supported web browsers
 
 - iOS (Safari, Chrome)
 - Android (Browser, Chrome)
+- Firefox OS, Firefox for Android
 - Opera Mobile (Android)
 - BlackBerry Playbook
 - All modern desktop browsers (mouse fallback)
