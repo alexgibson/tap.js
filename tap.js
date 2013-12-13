@@ -82,7 +82,7 @@
         this.element.removeEventListener('mousedown', this, false);
         this.element.removeEventListener('mousemove', this, false);
         this.element.removeEventListener('mouseup', this, false);
-    }
+    };
 
     Tap.prototype.handleEvent = function (e) {
         switch (e.type) {
