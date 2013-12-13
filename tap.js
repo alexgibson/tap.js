@@ -1,24 +1,25 @@
-/*
+/*!
+ * tap.js
  * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
  * Released under MIT license
  */
-
 (function (window, document) {
 
     'use strict';
 
     function Tap(el) {
-        this.element = typeof el === 'object' ? el : document.getElementById(el);
+        el = typeof el === 'object' ? el : document.getElementById(el);
+        this.element = el;
         this.moved = false; //flags if the finger has moved
         this.startX = 0; //starting x coordinate
         this.startY = 0; //starting y coordinate
         this.hasTouchEventOccured = false; //flag touch event
-        this.element.addEventListener('touchstart', this, false);
-        this.element.addEventListener('touchmove', this, false);
-        this.element.addEventListener('touchend', this, false);
-        this.element.addEventListener('touchcancel', this, false);
-        this.element.addEventListener('mousedown', this, false);
-        this.element.addEventListener('mouseup', this, false);
+        el.addEventListener('touchstart', this, false);
+        el.addEventListener('touchmove', this, false);
+        el.addEventListener('touchend', this, false);
+        el.addEventListener('touchcancel', this, false);
+        el.addEventListener('mousedown', this, false);
+        el.addEventListener('mouseup', this, false);
     }
 
     Tap.prototype.start = function (e) {
@@ -70,13 +71,14 @@
     };
 
     Tap.prototype.destroy = function () {
+        var el = this.element;
+        el.removeEventListener('touchstart', this, false);
+        el.removeEventListener('touchmove', this, false);
+        el.removeEventListener('touchend', this, false);
+        el.removeEventListener('touchcancel', this, false);
+        el.removeEventListener('mousedown', this, false);
+        el.removeEventListener('mouseup', this, false);
         this.element = null;
-        this.element.removeEventListener('touchstart', this, false);
-        this.element.removeEventListener('touchmove', this, false);
-        this.element.removeEventListener('touchend', this, false);
-        this.element.removeEventListener('touchcancel', this, false);
-        this.element.removeEventListener('mousedown', this, false);
-        this.element.removeEventListener('mouseup', this, false);
     };
 
     Tap.prototype.handleEvent = function (e) {
