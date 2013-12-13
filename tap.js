@@ -1,14 +1,7 @@
 /*
- *
- * Find more about this plugin by visiting
- * http://alxgbsn.co.uk/
- *
  * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
  * Released under MIT license
- *
  */
-
-/*global window: false, document: false */
 
 (function (window, document) {
 
@@ -21,10 +14,14 @@
         this.startY = 0; //starting y coordinate
         this.hasTouchEventOccured = false; //flag touch event
         this.element.addEventListener('touchstart', this, false);
+        this.element.addEventListener('touchmove', this, false);
+        this.element.addEventListener('touchend', this, false);
+        this.element.addEventListener('touchcancel', this, false);
         this.element.addEventListener('mousedown', this, false);
+        this.element.addEventListener('mousemove', this, false);
+        this.element.addEventListener('mouseup', this, false);
     }
 
-    //start
     Tap.prototype.start = function (e) {
         if (e.type === 'touchstart') {
             this.hasTouchEventOccured = true;
@@ -32,14 +29,8 @@
         this.moved = false;
         this.startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
         this.startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-        this.element.addEventListener('touchmove', this, false);
-        this.element.addEventListener('touchend', this, false);
-        this.element.addEventListener('touchcancel', this, false);
-        this.element.addEventListener('mousemove', this, false);
-        this.element.addEventListener('mouseup', this, false);
     };
 
-    //move
     Tap.prototype.move = function (e) {
         var x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX,
             y = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
@@ -50,7 +41,6 @@
         }
     };
 
-    //end
     Tap.prototype.end = function (e) {
         var evt;
 
@@ -74,25 +64,25 @@
             }
             e.target.dispatchEvent(evt);
         }
-        this.element.removeEventListener('touchmove', this, false);
-        this.element.removeEventListener('touchend', this, false);
-        this.element.removeEventListener('touchcancel', this, false);
-        this.element.removeEventListener('mousemove', this, false);
-        this.element.removeEventListener('mouseup', this, false);
     };
 
-    //touchcancel
     Tap.prototype.cancel = function (e) {
-        //reset state
+        this.hasTouchEventOccured = false;
         this.moved = false;
         this.startX = 0;
         this.startY = 0;
+    };
+
+    Tap.prototype.destroy = function () {
+        this.element = null;
+        this.element.removeEventListener('touchstart', this, false);
         this.element.removeEventListener('touchmove', this, false);
         this.element.removeEventListener('touchend', this, false);
         this.element.removeEventListener('touchcancel', this, false);
+        this.element.removeEventListener('mousedown', this, false);
         this.element.removeEventListener('mousemove', this, false);
         this.element.removeEventListener('mouseup', this, false);
-    };
+    }
 
     Tap.prototype.handleEvent = function (e) {
         switch (e.type) {
@@ -106,7 +96,6 @@
         }
     };
 
-    //public function
     window.Tap = Tap;
 
 }(window, document));
