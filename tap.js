@@ -18,7 +18,6 @@
         this.element.addEventListener('touchend', this, false);
         this.element.addEventListener('touchcancel', this, false);
         this.element.addEventListener('mousedown', this, false);
-        this.element.addEventListener('mousemove', this, false);
         this.element.addEventListener('mouseup', this, false);
     }
 
@@ -32,11 +31,8 @@
     };
 
     Tap.prototype.move = function (e) {
-        var x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX,
-            y = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-
         //if finger moves more than 10px flag to cancel
-        if (Math.abs(x - this.startX) > 10 || Math.abs(y - this.startY) > 10) {
+        if (Math.abs(e.touches[0].clientX - this.startX) > 10 || Math.abs(e.touches[0].clientY - this.startY) > 10) {
             this.moved = true;
         }
     };
@@ -80,7 +76,6 @@
         this.element.removeEventListener('touchend', this, false);
         this.element.removeEventListener('touchcancel', this, false);
         this.element.removeEventListener('mousedown', this, false);
-        this.element.removeEventListener('mousemove', this, false);
         this.element.removeEventListener('mouseup', this, false);
     };
 
