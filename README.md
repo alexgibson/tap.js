@@ -29,7 +29,7 @@ var el = document.getElementById('my-id'),
 You can then start listening for 'tap' events using the regular JavaScript event listener syntax:
 
 ```
-el.addEventListener('tap', onTap, false); 
+el.addEventListener('tap', onTap, false);
 
 function onTap (e) {
 	//your code
@@ -41,7 +41,7 @@ You can stop listening for tap events like so:
 ```
 el.removeEventListener('tap', onTap, false);
 ```
-	
+
 Supported web browsers
 ---------------------------------------
 
@@ -51,7 +51,12 @@ Supported web browsers
 - Opera Mobile (Android)
 - BlackBerry Playbook
 - All modern desktop browsers (mouse fallback)
-	
+
+jQuery Support
+---------------------------------------
+
+Should you wish to use tap.js with jQuery, there is an optional [jQuery wrapper](https://github.com/alexgibson/tap.js/blob/master/jquery.tap.js) that you can include in your project.
+
 MIT License
 ---------------------------------------
 
