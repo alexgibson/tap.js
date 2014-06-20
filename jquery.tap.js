@@ -16,6 +16,8 @@
         return {
             setup: function () {
                 $.data(this, dataKey, new Tap(this));
+                
+                return false;
             },
             teardown: function () {
                 var tap = $.data(this, dataKey);
@@ -23,13 +25,8 @@
                     tap.destroy();
                     $.removeData(this, dataKey);
                 }
-            },
-            add: function (handleObj) {
-                this.addEventListener('tap', handleObj.handler, false);
-            },
-            remove: function (handleObj) {
-                this.removeEventListener('tap', handleObj.handler, false);
+                
+                return false;
             }
-        };
     }());
 }(window.jQuery));
