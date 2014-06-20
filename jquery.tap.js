@@ -28,5 +28,6 @@
                 
                 return false;
             }
+        };
     }());
 }(window.jQuery));
