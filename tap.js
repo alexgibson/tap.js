@@ -59,7 +59,12 @@
                 evt = document.createEvent('Event');
                 evt.initEvent('tap', true, true);
             }
-            e.target.dispatchEvent(evt);
+            
+            // dispatchEvent returns false if any handler calls preventDefault,
+            if (!e.target.dispatchEvent(evt)) {
+                // in which case we want to prevent clicks from firing.
+                e.preventDefault();
+            }
         }
     };
 
