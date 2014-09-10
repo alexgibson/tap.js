@@ -60,7 +60,7 @@
                 evt.initEvent('tap', true, true);
             }
 
-            //prevent touchend from propogating to any parent
+            //prevent touchend from propagating to any parent
             //nodes that may have a tap.js listener attached
             e.stopPropagation();
             
