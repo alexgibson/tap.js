@@ -59,6 +59,10 @@
                 evt = document.createEvent('Event');
                 evt.initEvent('tap', true, true);
             }
+
+            //prevent touchend from propogating to any parent
+            //nodes that may have a tap.js listener attached
+            e.stopPropagation();
             
             // dispatchEvent returns false if any handler calls preventDefault,
             if (!e.target.dispatchEvent(evt)) {
