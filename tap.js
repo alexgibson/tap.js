@@ -53,12 +53,14 @@
 
         if (!this.moved) {
             //create custom event
-            if (window.CustomEvent) {
+            if (typeof window.CustomEvent === 'function') {
+                //handle modern browsers
                 evt = new window.CustomEvent('tap', {
                     bubbles: true,
                     cancelable: true
                 });
             } else {
+                //handle older browsers and IE<=11
                 evt = document.createEvent('Event');
                 evt.initEvent('tap', true, true);
             }
