@@ -3,8 +3,17 @@
  * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
  * Released under MIT license
  */
-(function (window, document) {
-
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(function () {
+            return (root.Tap = factory());
+        });
+    } else if (typeof exports === 'object') {
+        module.exports = factory();
+    } else {
+        root.Tap = factory();
+    }
+}(this, function () {
     'use strict';
 
     function Tap(el) {
@@ -66,7 +75,7 @@
             //prevent touchend from propagating to any parent
             //nodes that may have a tap.js listener attached
             e.stopPropagation();
-            
+
             // dispatchEvent returns false if any handler calls preventDefault,
             if (!e.target.dispatchEvent(evt)) {
                 // in which case we want to prevent clicks from firing.
@@ -102,6 +111,5 @@
         }
     };
 
-    window.Tap = Tap;
-
-}(window, document));
+    return Tap;
+}));
