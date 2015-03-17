@@ -3,17 +3,17 @@
  * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
  * Released under MIT license
  */
-(function (root, factory) {
+(function (global, factory) {
     if (typeof define === 'function' && define.amd) {
         define(function () {
-            return (root.Tap = factory());
+            return (global.Tap = factory(global, global.document));
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory();
+        module.exports = factory(global, global.document);
     } else {
-        root.Tap = factory();
+        global.Tap = factory(global, global.document);
     }
-}(this, function () {
+}(typeof window !== 'undefined' ? window : this, function (window, document) {
     'use strict';
 
     function Tap(el) {
