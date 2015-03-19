@@ -3,7 +3,9 @@
  * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
  * Released under MIT license
  */
+/* global define, module */
 (function (global, factory) {
+    'use strict';
     if (typeof define === 'function' && define.amd) {
         define(function () {
             return (global.Tap = factory(global, global.document));
@@ -84,7 +86,7 @@
         }
     };
 
-    Tap.prototype.cancel = function(e) {
+    Tap.prototype.cancel = function() {
         this.hasTouchEventOccured = false;
         this.moved = false;
         this.startX = 0;
@@ -102,12 +104,12 @@
 
     Tap.prototype.handleEvent = function(e) {
         switch (e.type) {
-        case 'touchstart': this.start(e); break;
-        case 'touchmove': this.move(e); break;
-        case 'touchend': this.end(e); break;
-        case 'touchcancel': this.cancel(e); break;
-        case 'mousedown': this.start(e); break;
-        case 'mouseup': this.end(e); break;
+            case 'touchstart': this.start(e); break;
+            case 'touchmove': this.move(e); break;
+            case 'touchend': this.end(e); break;
+            case 'touchcancel': this.cancel(e); break;
+            case 'mousedown': this.start(e); break;
+            case 'mouseup': this.end(e); break;
         }
     };
 
