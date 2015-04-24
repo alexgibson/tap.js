@@ -1,0 +1,25 @@
+{
+  "name": "tap.js",
+  "version": "2.1.0",
+  "description": "A custom tap event JavaScript plugin for mobile and tablet web browsers",
+  "main": "tap.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexgibson/tap.js.git"
+  },
+  "keywords": [
+    "javascript",
+    "tap",
+    "touch",
+    "event"
+  ],
+  "author": "Alex Gibson <alxgbsn@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexgibson/tap.js/issues"
+  },
+  "homepage": "https://github.com/alexgibson/tap.js"
+}
