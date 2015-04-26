@@ -1,7 +1,7 @@
 {
     "name": "tap.js",
     "description": "A custom tap event JavaScript plugin for mobile and tablet web browsers",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "author": {
         "name": "Alex Gibson",
         "email": "alxgbsn@gmail.com"
