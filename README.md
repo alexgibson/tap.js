@@ -7,13 +7,28 @@ Installation
 ---------------------------------------
 
 * Download: [zip](https://github.com/alexgibson/tap.js/zipball/master)
+* [NPM](https://www.npmjs.org/): `npm install tap.js`
 * [Bower](https://github.com/twitter/bower/): `bower install tap.js`
 * Git: `git clone https://github.com/alexgibson/tap.js`
 
 Setup
----------------------------------------
+---------
 
-First, include the main tap.js JavaScript file in your HTML document:
+This component can be used as an AMD module, CommonJS module, or a global.
+
+### for AMD module:
+```
+define(['./tap'], function(Tap) {
+    // ...
+});
+```
+
+### for CommonJS:
+```
+var Tap = require('tap.js');
+```
+
+### for global in the browser
 
 ```
 <script src="tap.js"></script>
