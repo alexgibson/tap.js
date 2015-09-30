@@ -57,6 +57,14 @@ You can stop listening for tap events like so:
 el.removeEventListener('tap', onTap, false);
 ```
 
+When a Tap instance is created, it adds a couple of event listeners on its element.
+To remove those listeners and cleanup the Tap instance completely, use its `destroy()` function:
+
+```
+var myTap = new Tap(el);
+myTap.destroy();
+```
+
 Supported web browsers
 ---------------------------------------
 
