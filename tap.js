@@ -123,33 +123,3 @@
     return Tap;
 }));
 
-/* generic helper for calling a function on every node in the DOM */
-function traverseDOMTree(currentElement, doSomething) {
-if (currentElement) {
-    var i=0;
-    var currentElementChild=currentElement.childNodes[i];
-          while (currentElementChild) {
-            doSomething(currentElementChild);
-            traverseDOMTree(currentElementChild, doSomething);
-            i++;
-            currentElementChild = currentElement.childNodes[i];
-        }
-    }
-}
-
-/* convert a single object's onclick attrib to also support touch */
-function convertToTappable(obj) {
-    if (obj.hasAttribute !== undefined && obj.hasAttribute("onclick")) {
-        obj.ontap = obj.onclick.toString();
-        var myTap = new Tap(obj);
-        obj.addEventListener('tap', obj.onclick, false);
-        obj.removeAttribute("onclick");
-    }
-}
-
-/* convert entire DOM tree onclick attribs to instead use Tap.js */
-function convertAllonclick2ontap() {
-    // convert all onclicks to also be tappable
-    traverseDOMTree(document, function(node){ convertToTappable( node ); });
-}
-
