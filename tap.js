@@ -3,6 +3,7 @@
  * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
  * Released under MIT license
  */
+
 /* global define, module */
 (function (global, factory) {
     'use strict';
@@ -37,8 +38,9 @@
             this.el.addEventListener('touchend', this, false);
             this.el.addEventListener('touchcancel', this, false);
 
-        } else if (e.type === 'mousedown') {
+        } else if (e.type === 'mousedown' && e.button == 0) {
 
+            this.el.addEventListener('mousemove', this, false);
             this.el.addEventListener('mouseup', this, false);
         }
 
@@ -49,7 +51,9 @@
 
     Tap.prototype.move = function(e) {
         //if finger moves more than 10px flag to cancel
-        if (Math.abs(e.touches[0].clientX - this.startX) > 10 || Math.abs(e.touches[0].clientY - this.startY) > 10) {
+        var x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        var y = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+        if (Math.abs(x - this.startX) > 10 || Math.abs(y - this.startY) > 10) {
             this.moved = true;
         }
     };
@@ -61,6 +65,7 @@
         this.el.removeEventListener('touchend', this, false);
         this.el.removeEventListener('touchcancel', this, false);
         this.el.removeEventListener('mouseup', this, false);
+        this.el.removeEventListener('mousemove', this, false);
 
         if (!this.moved) {
             //create custom event
@@ -100,6 +105,7 @@
         this.el.removeEventListener('touchcancel', this, false);
         this.el.removeEventListener('mousedown', this, false);
         this.el.removeEventListener('mouseup', this, false);
+        this.el.removeEventListener('mousemove', this, false);
     };
 
     Tap.prototype.handleEvent = function(e) {
@@ -110,8 +116,40 @@
             case 'touchcancel': this.cancel(e); break;
             case 'mousedown': this.start(e); break;
             case 'mouseup': this.end(e); break;
+            case 'mousemove': this.move(e); break;
         }
     };
 
     return Tap;
 }));
+
+/* generic helper for calling a function on every node in the DOM */
+function traverseDOMTree(currentElement, doSomething) {
+if (currentElement) {
+    var i=0;
+    var currentElementChild=currentElement.childNodes[i];
+          while (currentElementChild) {
+            doSomething(currentElementChild);
+            traverseDOMTree(currentElementChild, doSomething);
+            i++;
+            currentElementChild = currentElement.childNodes[i];
+        }
+    }
+}
+
+/* convert a single object's onclick attrib to also support touch */
+function convertToTappable(obj) {
+    if (obj.hasAttribute !== undefined && obj.hasAttribute("onclick")) {
+        obj.ontap = obj.onclick.toString();
+        var myTap = new Tap(obj);
+        obj.addEventListener('tap', obj.onclick, false);
+        obj.removeAttribute("onclick");
+    }
+}
+
+/* convert entire DOM tree onclick attribs to instead use Tap.js */
+function convertAllonclick2ontap() {
+    // convert all onclicks to also be tappable
+    traverseDOMTree(document, function(node){ convertToTappable( node ); });
+}
+
