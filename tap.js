@@ -3,6 +3,7 @@
  * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
  * Released under MIT license
  */
+
 /* global define, module */
 (function (global, factory) {
     'use strict';
@@ -28,8 +29,26 @@
         this.el.addEventListener('mousedown', this, false);
     }
 
-    Tap.prototype.start = function(e) {
+    // return true if left click is in the event, handle many browsers
+    Tap.prototype.leftButton = function(event) {
+        // modern & preferred:  MSIE>=9, Firefox(all)
+        if ('buttons' in event) {
+           // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
+           return event.buttons === 1;
+        } else {
+           return 'which' in event ?
+               // 'which' is well defined (and doesn't exist on MSIE<=8)
+               // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/which
+               event.which === 1 :
 
+               // for MSIE<=8 button is 1=left (0 on all other browsers)
+               // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+               event.button === 1;
+        }
+        return false;
+    }
+
+    Tap.prototype.start = function(e) {
         if (e.type === 'touchstart') {
 
             this.hasTouchEventOccured = true;
@@ -37,8 +56,9 @@
             this.el.addEventListener('touchend', this, false);
             this.el.addEventListener('touchcancel', this, false);
 
-        } else if (e.type === 'mousedown') {
+        } else if (e.type === 'mousedown' && this.leftButton(e)) {
 
+            this.el.addEventListener('mousemove', this, false);
             this.el.addEventListener('mouseup', this, false);
         }
 
@@ -49,7 +69,9 @@
 
     Tap.prototype.move = function(e) {
         //if finger moves more than 10px flag to cancel
-        if (Math.abs(e.touches[0].clientX - this.startX) > 10 || Math.abs(e.touches[0].clientY - this.startY) > 10) {
+        var x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        var y = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+        if (Math.abs(x - this.startX) > 10 || Math.abs(y - this.startY) > 10) {
             this.moved = true;
         }
     };
@@ -61,6 +83,7 @@
         this.el.removeEventListener('touchend', this, false);
         this.el.removeEventListener('touchcancel', this, false);
         this.el.removeEventListener('mouseup', this, false);
+        this.el.removeEventListener('mousemove', this, false);
 
         if (!this.moved) {
             //create custom event
@@ -100,6 +123,7 @@
         this.el.removeEventListener('touchcancel', this, false);
         this.el.removeEventListener('mousedown', this, false);
         this.el.removeEventListener('mouseup', this, false);
+        this.el.removeEventListener('mousemove', this, false);
     };
 
     Tap.prototype.handleEvent = function(e) {
@@ -110,8 +134,11 @@
             case 'touchcancel': this.cancel(e); break;
             case 'mousedown': this.start(e); break;
             case 'mouseup': this.end(e); break;
+            case 'mousemove': this.move(e); break;
         }
     };
 
     return Tap;
 }));
+
+
