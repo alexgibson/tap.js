@@ -29,26 +29,23 @@
         this.el.addEventListener('mousedown', this, false);
     }
 
-    // query which button was pressed in the event
-    // handles many browsers/versions
-    // returns: 1=left, 2=right, 4=center, 8=4th, 16=5th
-    Tap.prototype.whichbutton = function(event) {
+    // return true if left click is in the event, handle many browsers
+    Tap.prototype.leftButton = function(event) {
         // modern & preferred:  MSIE>=9, Firefox(all)
         if ('buttons' in event) {
-           // http://www.w3schools.com/jsref/event_buttons.asp
-           return event.buttons;  // 1=left,2=right,4=center,8=4th,16=5th
+           // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
+           return event.buttons === 1;
         } else {
            return 'which' in event ?
                // 'which' is well defined (and doesn't exist on MSIE<=8)
-               // http://www.w3schools.com/jsref/event_which.asp
-               (event.which === 1 ? 1 :      // left
-                event.which === 3 ? 2 :      // right
-                event.which === 2 ? 4 : 1) : // center
+               // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/which
+               event.which === 1 :
 
-               // for MSIE<=8 button is 1=left,2=right,4=center (normally 0,2,1)
-               // http://www.w3schools.com/jsref/event_button.asp
-               event.button;
+               // for MSIE<=8 button is 1=left (0 on all other browsers)
+               // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+               event.button === 1;
         }
+        return false;
     }
 
     Tap.prototype.start = function(e) {
@@ -59,7 +56,7 @@
             this.el.addEventListener('touchend', this, false);
             this.el.addEventListener('touchcancel', this, false);
 
-        } else if (e.type === 'mousedown' && this.whichbutton(e) === 1) {
+        } else if (e.type === 'mousedown' && this.leftButton(e)) {
 
             this.el.addEventListener('mousemove', this, false);
             this.el.addEventListener('mouseup', this, false);
