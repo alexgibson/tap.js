@@ -29,24 +29,45 @@
         this.el.addEventListener('mousedown', this, false);
     }
 
-    Tap.prototype.start = function(e) {
+    function fixupMouse( event ) {
+        event = event || window.event;
+        var e = { event: event,
+            target: 'target' in event ? event.target : event.srcElement,
+            which: 'which' in event ? event.which : // otherwise MSIE<8
+                 event.button === 1 ? 1 :   // left
+                 event.button === 2 ? 3 :   // right
+                 event.button === 4 ? 2 : 1,// center
+            buttons: 0,
+            button: 0,
+            x: 'x' in event ? event.x : event.clientX,
+            y: 'y' in event ? event.y : event.clientY
+        };
+        e.button = e.which - 1;
+        e.buttons = 'buttons' in event ? event.buttons :
+                 e.which === 1 ? 1 :   // left
+                 e.which === 3 ? 2 :   // right
+                 e.which === 2 ? 4 : 1;// center
+        return e;
+    }
 
-        if (e.type === 'touchstart') {
+    Tap.prototype.start = function(e) {
+        e = fixupMouse(e);
+        if (e.event.type === 'touchstart') {
 
             this.hasTouchEventOccured = true;
             this.el.addEventListener('touchmove', this, false);
             this.el.addEventListener('touchend', this, false);
             this.el.addEventListener('touchcancel', this, false);
 
-        } else if (e.type === 'mousedown' && e.button == 0) {
+        } else if (e.event.type === 'mousedown' && e.button == 0) {
 
             this.el.addEventListener('mousemove', this, false);
             this.el.addEventListener('mouseup', this, false);
         }
 
         this.moved = false;
-        this.startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-        this.startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+        this.startX = e.event.type === 'touchstart' ? e.event.touches[0].clientX : e.event.clientX;
+        this.startY = e.event.type === 'touchstart' ? e.event.touches[0].clientY : e.event.clientY;
     };
 
     Tap.prototype.move = function(e) {
@@ -122,4 +143,5 @@
 
     return Tap;
 }));
+
 
