@@ -1,6 +1,7 @@
 /*!
  * tap.js
- * Copyright (c) 2013 Alex Gibson, http://alxgbsn.co.uk/
+ * Copyright (c) 2015 Alex Gibson 
+ * https://github.com/alexgibson/tap.js/
  * Released under MIT license
  */
 
@@ -33,20 +34,19 @@
     Tap.prototype.leftButton = function(event) {
         // modern & preferred:  MSIE>=9, Firefox(all)
         if ('buttons' in event) {
-           // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
+           // https://developer.mozilla.org/docs/Web/API/MouseEvent/buttons
            return event.buttons === 1;
         } else {
            return 'which' in event ?
                // 'which' is well defined (and doesn't exist on MSIE<=8)
-               // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/which
+               // https://developer.mozilla.org/docs/Web/API/MouseEvent/which
                event.which === 1 :
-
                // for MSIE<=8 button is 1=left (0 on all other browsers)
-               // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+               // https://developer.mozilla.org/docs/Web/API/MouseEvent/button
                event.button === 1;
         }
         return false;
-    }
+    };
 
     Tap.prototype.start = function(e) {
         if (e.type === 'touchstart') {
@@ -140,5 +140,3 @@
 
     return Tap;
 }));
-
-
