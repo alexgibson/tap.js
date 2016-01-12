@@ -1,6 +1,6 @@
 {
   "name": "tap.js",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "A custom tap event JavaScript plugin for mobile and tablet web browsers",
   "main": "tap.js",
   "scripts": {
