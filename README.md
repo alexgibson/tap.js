@@ -1,10 +1,19 @@
+Deprecation note
+================
+
+Note: this plugin is now deprecated. While bugs may be fixed for legacy support,
+no new features will be added. Nearly all modern browsers now provide [native
+solutions](http://patrickhlauke.github.io/touch/tests/results/#suppressing-300ms-delay)
+for eliminating the 300ms tap delay. Before adding a plugin such as this one to
+your website, please first stop to consider if it may actually be needed.
+
 tap.js
-=======================================
+------
 
 A custom 'tap' event JavaScript plugin for mobile and tablet web browsers, which eliminates the 300ms delay between a physical 'tap' and the firing of a 'click' event. Uses mouse events as a fallback for browsers that don't support touch.
 
 Installation
----------------------------------------
+------------
 
 * Download: [zip](https://github.com/alexgibson/tap.js/zipball/master)
 * [NPM](https://www.npmjs.org/): `npm install tap.js`
@@ -12,7 +21,7 @@ Installation
 * Git: `git clone https://github.com/alexgibson/tap.js`
 
 Setup
----------
+-----
 
 This component can be used as an AMD module, CommonJS module, or a global.
 
