@@ -45,7 +45,6 @@
                // https://developer.mozilla.org/docs/Web/API/MouseEvent/button
                event.button === 1;
         }
-        return false;
     };
 
     Tap.prototype.start = function(e) {
